@@ -12,3 +12,12 @@ body {
     height: 600px;
     width: 100%;
 }
+
+.deutschland-karte__cluster {
+    background-color: #fff;
+    color: #000;
+    border: solid 1.5px #5291aa;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+}

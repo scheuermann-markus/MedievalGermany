@@ -5,7 +5,11 @@ namespace MedievalGermany.Application.Services
 {
     public class CastleService : ICastleService
     {
-        public async Task<IEnumerable<Castle>> GetAllCastles()
+        /// <summary>
+        /// Gibt alle Castles zurück, die den SearchArguments entsprechen.
+        /// </summary>
+        /// <returns>IEnumerable<Castle></returns>
+        public async Task<IEnumerable<Castle>> GetCastles(SearchArguments searchArguments)
         {
             await Task.Delay(1000);
             return Data;

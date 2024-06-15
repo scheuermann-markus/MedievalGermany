@@ -5,23 +5,26 @@
 
 <PageTitle>Medieval Germany</PageTitle>
 
-<div>
-    @foreach (var castle in Castles)
-    {
-        <CastleCard Castle="@castle"/>
-    }
-</div>
+@if (Castles.Any())
+{
+    <div>
+        @foreach (var castle in Castles)
+        {
+            <CastleCard Castle="@castle"/>
+        }
+    </div>
 
-<Deutschlandkarte />
+    <Deutschlandkarte Castles="@Castles" />
+}
 
 @code {
     IEnumerable<Castle> Castles { get; set; } = Enumerable.Empty<Castle>();
-
+    private SearchArguments _searchArguments { get; set; } = new SearchArguments();
 
 
     protected override async Task OnInitializedAsync()
     {
-        Castles = await CastleService.GetAllCastles();
+        Castles = await CastleService.GetCastles(_searchArguments);
 
         await base.OnInitializedAsync();
     }

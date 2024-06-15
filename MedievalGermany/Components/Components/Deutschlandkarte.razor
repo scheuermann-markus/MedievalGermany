@@ -1,10 +1,10 @@
 ﻿@inject IJSRuntime JsRuntime
 
 <div id="deutschland-karte" class="deutschland-karte">
-
 </div>
 
 @code {
+    [Parameter, EditorRequired] public required IEnumerable<Castle> Castles { get; set; }
     private IJSObjectReference? _module;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -16,8 +16,8 @@
             // Kartenmaterial initialisieren
             await module.InvokeVoidAsync("InitMap");
 
-            // Marker laden
-            await module.InvokeVoidAsync("CreateMarker");
+            // Marker setzen
+            await module.InvokeVoidAsync("CreateMarker", Castles);
         }
 
         await base.OnAfterRenderAsync(firstRender);
