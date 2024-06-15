@@ -22,7 +22,7 @@
         </div>
 
         <div class="feed__karte-wrapper">
-            <Deutschlandkarte Castles="@Castles" />
+            <Deutschlandkarte Castles="@Castles" OnMapViewChange="HandleOnMapViewChange" />
         </div>
     }
 </section>
@@ -42,5 +42,14 @@
     async Task Requery()
     {
         Castles = await CastleService.GetCastles(_searchArguments);
+    }
+
+    async Task HandleOnMapViewChange(BoundingBox boundingBox)
+    {
+        // SearchArguments mit BoundingBox updaten
+        _searchArguments.BoundingBox = boundingBox;
+
+        // Neuladen
+        await Requery();
     }
 }

@@ -13,9 +13,20 @@ namespace MedievalGermany.Application.Services
         {
             var data = Data;
 
+            // Filter nach Suchtext
             if (searchArguments.Suchtext != null)
             {
                 data = Data.Where(e => e.Name.Contains(searchArguments.Suchtext, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            // Filter nach BoundingBox
+            if (searchArguments.BoundingBox != null)
+            {
+                var boundingBox = searchArguments.BoundingBox;
+                data = data.Where(e => e.Geolocation.Latitude > boundingBox.SouthWest.Latitude 
+                                    && e.Geolocation.Latitude < boundingBox.NorthEast.Latitude
+                                    && e.Geolocation.Longitude < boundingBox.NorthEast.Longitude
+                                    && e.Geolocation.Longitude > boundingBox.SouthWest.Longitude);
             }
 
             return data;
@@ -44,6 +55,28 @@ namespace MedievalGermany.Application.Services
                 {
                     Latitude = 49.41062,
                     Longitude = 8.715309,
+                }
+            },
+            new Castle
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Schloss Herrenchiemsee",
+                Eroeffnet = 1878,
+                Geolocation = new Geolocation
+                {
+                    Latitude = 47.867265,
+                    Longitude = 12.39588,
+                }
+            },
+            new Castle
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Schloss Schwerin",
+                Eroeffnet = 1857,
+                Geolocation = new Geolocation
+                {
+                    Latitude = 53.624468,
+                    Longitude = 11.418173,
                 }
             },
         };

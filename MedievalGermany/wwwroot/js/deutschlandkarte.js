@@ -1,4 +1,4 @@
-﻿export async function InitMap() {
+﻿export async function InitMap(dotNetObject) {
     var dk = document.getElementById("deutschland-karte");
 
     var map = L.map(dk, {
@@ -11,6 +11,11 @@
         maxZoom: 16,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
     }).addTo(map);
+
+    // EventListener auf map setzten
+    map.on('moveend', () => {
+        OnBoundingBoxChanged(map, dotNetObject);
+    });
 
     // Initialisierte Karte dem Element hinzufügen, damit wir im Code weiter unten darauf zugreifen können.
     dk.MapInstance = map;
@@ -84,4 +89,15 @@ const GetMarkers = async (castles) => {
     }
 
     return allMarkers;
+}
+
+const OnBoundingBoxChanged = (map, dotNetObject) => {
+    let currentMapView = map.getBounds(); 
+
+    if (currentMapView._southWest.lat == currentMapView._northEast.lat && currentMapView._southWest.lng == currentMapView._northEast.lng) {
+        // Bounds ungültig... nicht an Dotnet weitergeben
+        return;
+    }
+
+    dotNetObject.invokeMethodAsync('BoundingBoxChanged', currentMapView._southWest.lat, currentMapView._southWest.lng, currentMapView._northEast.lat, currentMapView._northEast.lng);
 }

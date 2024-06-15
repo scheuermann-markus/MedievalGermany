@@ -5,6 +5,8 @@
 
 @code {
     [Parameter, EditorRequired] public required IEnumerable<Castle> Castles { get; set; }
+    [Parameter] public EventCallback<BoundingBox> OnMapViewChange { get; set; }
+    private DotNetObjectReference<Deutschlandkarte> _dotNetObjectReference;
     private IJSObjectReference? _module;
     private bool jsLoaded => _module != null;
 
@@ -13,10 +15,14 @@
     {
         if (firstRender)
         {
+            // Object Reference erstellen
+            _dotNetObjectReference = DotNetObjectReference.Create(this);
+
+            // JavaScript-Modul laden und cachen
             var module = await GetModule();
 
             // Kartenmaterial initialisieren
-            await module.InvokeVoidAsync("InitMap");
+            await module.InvokeVoidAsync("InitMap", _dotNetObjectReference);
 
             // Marker setzen
             await module.InvokeVoidAsync("CreateMarker", Castles);
@@ -41,5 +47,19 @@
             _module = await JsRuntime.InvokeAsync<IJSObjectReference>
               ("import", "./js/deutschlandkarte.js");
         return _module;
+    }
+
+    // Wird aus 'deutschlandkarte.js' aufgerufen, wenn sich die MapView ändert.
+    [JSInvokable(nameof(BoundingBoxChanged))]
+    public async Task BoundingBoxChanged(double southWest_lat, double southWest_lng, double northEast_lat, double northEast_lng)
+    {
+        // BoundingBox erstellen
+        var boundingBox = new BoundingBox(
+            new Location(southWest_lat, southWest_lng),
+            new Location(northEast_lat, northEast_lng)
+        );
+
+        // EventCallback triggern
+        await OnMapViewChange.InvokeAsync(boundingBox);
     }
 }
