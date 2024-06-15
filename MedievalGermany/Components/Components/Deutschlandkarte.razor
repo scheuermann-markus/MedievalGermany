@@ -1,0 +1,33 @@
+﻿@inject IJSRuntime JsRuntime
+
+<div id="deutschland-karte" class="deutschland-karte">
+
+</div>
+
+@code {
+    private IJSObjectReference? _module;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var module = await GetModule();
+
+            // Kartenmaterial initialisieren
+            await module.InvokeVoidAsync("InitMap");
+
+            // Marker laden
+            await module.InvokeVoidAsync("CreateMarker");
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    private async ValueTask<IJSObjectReference> GetModule()
+    {
+        if (_module == null)
+            _module = await JsRuntime.InvokeAsync<IJSObjectReference>
+              ("import", "./js/deutschlandkarte.js");
+        return _module;
+    }
+}
