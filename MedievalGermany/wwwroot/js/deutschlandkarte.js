@@ -27,6 +27,11 @@ export async function CreateMarker(castles) {
         return;
     }
 
+    // Marker Cluster Group und alle Marker entfernen
+    if (dk.CurrentMarkerClusterGroup != null) {
+        map.removeLayer(dk.CurrentMarkerClusterGroup); 
+    }
+
     var markerClusterGroup = GetMarkerClusterGroup();
 
     var allMarkers = await GetMarkers(castles);
@@ -34,7 +39,10 @@ export async function CreateMarker(castles) {
         markerClusterGroup.addLayer(marker);
     });
 
+    // Add Marker Cluster Group to the map
     map.addLayer(markerClusterGroup);
+    // Add Marker Cluster Group to the element
+    dk.CurrentMarkerClusterGroup = markerClusterGroup;
 }
 
 

@@ -6,6 +6,8 @@
 @code {
     [Parameter, EditorRequired] public required IEnumerable<Castle> Castles { get; set; }
     private IJSObjectReference? _module;
+    private bool jsLoaded => _module != null;
+
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -21,6 +23,16 @@
         }
 
         await base.OnAfterRenderAsync(firstRender);
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (jsLoaded)
+        {
+            var module = await GetModule();
+            await module.InvokeVoidAsync("CreateMarker", Castles);
+            await base.OnParametersSetAsync();
+        }
     }
 
     private async ValueTask<IJSObjectReference> GetModule()

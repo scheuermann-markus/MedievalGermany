@@ -11,8 +11,14 @@ namespace MedievalGermany.Application.Services
         /// <returns>IEnumerable<Castle></returns>
         public async Task<IEnumerable<Castle>> GetCastles(SearchArguments searchArguments)
         {
-            await Task.Delay(1000);
-            return Data;
+            var data = Data;
+
+            if (searchArguments.Suchtext != null)
+            {
+                data = Data.Where(e => e.Name.Contains(searchArguments.Suchtext, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            return data;
         }
 
 

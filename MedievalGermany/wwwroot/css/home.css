@@ -1,1 +1,19 @@
-﻿
+﻿.search-section {
+    margin-top: 3rem;
+}
+
+.feed-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+
+    margin-top: 3rem;
+}
+
+.feed__cards-container {
+
+}
+
+.feed__karte-wrapper {
+}
+

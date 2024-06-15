@@ -5,27 +5,42 @@
 
 <PageTitle>Medieval Germany</PageTitle>
 
-@if (Castles.Any())
-{
+<section class="search-section">
     <div>
-        @foreach (var castle in Castles)
-        {
-            <CastleCard Castle="@castle"/>
-        }
+        <input type="text" @bind-value="@_searchArguments.Suchtext" @bind-value:event="onchange" @bind-value:after="Requery" placeholder="Suchtext..." />
     </div>
+</section>
 
-    <Deutschlandkarte Castles="@Castles" />
-}
+<section class="feed-section">
+    @if (Castles != null)
+    {
+        <div class="feed__cards-container">
+            @foreach (var castle in Castles)
+            {
+                <CastleCard Castle="@castle" />
+            }
+        </div>
+
+        <div class="feed__karte-wrapper">
+            <Deutschlandkarte Castles="@Castles" />
+        </div>
+    }
+</section>
 
 @code {
-    IEnumerable<Castle> Castles { get; set; } = Enumerable.Empty<Castle>();
+    IEnumerable<Castle>? Castles { get; set; } 
     private SearchArguments _searchArguments { get; set; } = new SearchArguments();
 
 
     protected override async Task OnInitializedAsync()
     {
-        Castles = await CastleService.GetCastles(_searchArguments);
+        await Requery();
 
         await base.OnInitializedAsync();
+    }
+
+    async Task Requery()
+    {
+        Castles = await CastleService.GetCastles(_searchArguments);
     }
 }

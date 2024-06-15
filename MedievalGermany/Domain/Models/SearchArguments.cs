@@ -2,6 +2,7 @@
 {
     public class SearchArguments
     {
+        public string? Suchtext { get; set; }
         public BoundingBox? BoundingBox { get; set; }
     }
 
