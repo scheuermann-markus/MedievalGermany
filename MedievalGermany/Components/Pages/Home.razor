@@ -1,4 +1,27 @@
-﻿@page "/"
+﻿@using MedievalGermany.Components.Components
+
+@page "/"
+@inject ICastleService CastleService
 
 <PageTitle>Medieval Germany</PageTitle>
 
+<div>
+    @foreach (var castle in Castles)
+    {
+        <CastleCard Castle="@castle"/>
+    }
+</div>
+
+
+@code {
+    IEnumerable<Castle> Castles { get; set; } = Enumerable.Empty<Castle>();
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Castles = await CastleService.GetAllCastles();
+
+        await base.OnInitializedAsync();
+    }
+}

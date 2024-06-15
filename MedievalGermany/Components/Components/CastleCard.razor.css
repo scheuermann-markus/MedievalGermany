@@ -1,0 +1,8 @@
+﻿.castle-card {
+
+}
+
+.castle-card__header {
+    display: flex; 
+    gap: 0.5rem;
+}

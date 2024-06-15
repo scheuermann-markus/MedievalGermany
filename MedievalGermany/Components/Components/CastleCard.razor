@@ -1,0 +1,13 @@
+﻿
+<div class="castle-card">
+    <div class="castle-card__header">
+        <span>@Castle.Name</span>
+        <span>Baujahr: @Castle.Eroeffnet</span>
+    </div>
+</div>
+
+
+
+@code {
+    [Parameter, EditorRequired] public Castle Castle { get; set; }
+}
