@@ -18,10 +18,13 @@ namespace MedievalGermany.Application.Services
             var data = Data.ToList();
             var caslte = data[0];
 
-            using var session = _store.OpenAsyncSession();
+            using (var session = _store.OpenAsyncSession())
+            {
+                await session.StoreAsync(caslte);
+                await session.SaveChangesAsync();
 
-            await session.StoreAsync(caslte);
-            await session.SaveChangesAsync();
+            } ;
+
         }
 
 

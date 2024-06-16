@@ -26,9 +26,8 @@ namespace MedievalGermany.Application.Services
             var serverUrl = _configuration.GetSection("RavenDbSettings:Urls").Get<string[]>();
             var databaseName = _configuration.GetValue<string>("RavenDbSettings:DatabaseName");
             var certFile = _configuration.GetValue<string>("RavenDbSettings:CertFilePath");
-            var certPassword = _configuration.GetValue<string>("RavenDbSettings:CertPassword");
 
-            var clientCertificate = new X509Certificate2(certFile, certPassword);
+            var clientCertificate = new X509Certificate2(certFile);
             documentStore = new DocumentStore
             {
                 Certificate = clientCertificate,
