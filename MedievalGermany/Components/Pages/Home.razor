@@ -34,6 +34,8 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await CastleService.SafeCastle();
+
         await Requery();
 
         await base.OnInitializedAsync();
