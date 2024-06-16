@@ -8,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddScoped<ICastleService, CastleService>();
+builder.Services.AddSingleton<IRavenDbService, RavenDbService>();
+builder.Services.AddSingleton(e => e.GetRequiredService<IRavenDbService>().GetDocumentStore());
 
 var app = builder.Build();
 

@@ -1,10 +1,30 @@
 ﻿using MedievalGermany.Application.Interfaces;
 using MedievalGermany.Domain.Models;
+using Raven.Client.Documents;
 
 namespace MedievalGermany.Application.Services
 {
     public class CastleService : ICastleService
     {
+        private readonly IDocumentStore _store;
+
+        public CastleService(IDocumentStore store)
+        {
+            _store = store;
+        }
+
+        public async Task SafeCastle()
+        {
+            var data = Data.ToList();
+            var caslte = data[0];
+
+            using var session = _store.OpenAsyncSession();
+
+            await session.StoreAsync(caslte);
+            await session.SaveChangesAsync();
+        }
+
+
         /// <summary>
         /// Gibt alle Castles zurück, die den SearchArguments entsprechen.
         /// </summary>
