@@ -5,8 +5,6 @@
 
 <PageTitle>Medieval Germany</PageTitle>
 
-<ImageUpload />
-
 <section class="search-section">
     <div>
         <input type="text" @bind-value="@_searchArguments.Suchtext" @bind-value:event="onchange" @bind-value:after="Requery" placeholder="Suchtext..." />
@@ -28,6 +26,8 @@
         </div>
     }
 </section>
+
+<UploadCastle />
 
 @code {
     IEnumerable<Castle>? Castles { get; set; } 

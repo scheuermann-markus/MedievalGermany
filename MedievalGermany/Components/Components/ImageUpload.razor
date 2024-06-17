@@ -15,11 +15,6 @@
     private string base64Image;
     public long FileSizeLimit { get; set; } = 20 * 1024 * 1024;
 
-    // private void OpenFileDialog()
-    // {
-    //     inputFile.Element.Click();
-    // }
-
     private async Task HandleSelected(InputFileChangeEventArgs e)
     {
         var file = e.File;

@@ -3,10 +3,10 @@
     public class Castle
     {
         public string Id { get; set; }
-        public required string Name { get; set; }
+        public string Name { get; set; }
         public int Eroeffnet { get; set; }
         public string? WikipediaUrl { get; set; }
-        public string? ImageString { get; set; }
+        public string? ImageUrl { get; set; }
         public Geolocation? Geolocation { get; set; }
     }
 
