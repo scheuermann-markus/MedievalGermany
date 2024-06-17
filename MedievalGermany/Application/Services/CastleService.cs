@@ -19,16 +19,17 @@ namespace MedievalGermany.Application.Services
 
         public async Task SafeCastle()
         {
-            var data = Data.ToList();
-            var caslte = data[0];
+            //var data = Data.ToList();
+            //var caslte = data[2];
 
-            using (var session = _store.OpenAsyncSession())
-            {
-                await session.StoreAsync(caslte);
-                await session.SaveChangesAsync();
+            //using (var session = _store.OpenAsyncSession())
+            //{
+            //    await session.StoreAsync(caslte);
+            //    await session.SaveChangesAsync();
 
-            } ;
+            //};
 
+            throw new NotImplementedException();
         }
 
 
@@ -44,52 +45,52 @@ namespace MedievalGermany.Application.Services
         }
 
 
-        public static IEnumerable<Castle> Data = new List<Castle>
-        {
-            new Castle
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = "Schloss Neuschwanstein",
-                Eroeffnet = 1884,
-                Geolocation = new Geolocation
-                {
-                    Latitude = 47.557732,
-                    Longitude = 10.749646,
-                }
-            },
-            new Castle
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = "Schloss Heidelberg",
-                Eroeffnet = 1214,
-                Geolocation = new Geolocation
-                {
-                    Latitude = 49.41062,
-                    Longitude = 8.715309,
-                }
-            },
-            new Castle
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = "Schloss Herrenchiemsee",
-                Eroeffnet = 1878,
-                Geolocation = new Geolocation
-                {
-                    Latitude = 47.867265,
-                    Longitude = 12.39588,
-                }
-            },
-            new Castle
-            {
-                Id = Guid.NewGuid().ToString(),
-                Name = "Schloss Schwerin",
-                Eroeffnet = 1857,
-                Geolocation = new Geolocation
-                {
-                    Latitude = 53.624468,
-                    Longitude = 11.418173,
-                }
-            },
-        };
+        //public static IEnumerable<Castle> Data = new List<Castle>
+        //{
+        //    new Castle
+        //    {
+        //        Id = "Castle/" + Guid.NewGuid().ToString(),
+        //        Name = "Schloss Neuschwanstein",
+        //        Eroeffnet = 1884,
+        //        Geolocation = new Geolocation
+        //        {
+        //            Latitude = 47.557732,
+        //            Longitude = 10.749646,
+        //        }
+        //    },
+        //    new Castle
+        //    {
+        //        Id = "Castle/" + Guid.NewGuid().ToString(),
+        //        Name = "Schloss Heidelberg",
+        //        Eroeffnet = 1214,
+        //        Geolocation = new Geolocation
+        //        {
+        //            Latitude = 49.41062,
+        //            Longitude = 8.715309,
+        //        }
+        //    },
+        //    new Castle
+        //    {
+        //        Id = Guid.NewGuid().ToString(),
+        //        Name = "Schloss Herrenchiemsee",
+        //        Eroeffnet = 1878,
+        //        Geolocation = new Geolocation
+        //        {
+        //            Latitude = 47.867265,
+        //            Longitude = 12.39588,
+        //        }
+        //    },
+        //    new Castle
+        //    {
+        //        Id = Guid.NewGuid().ToString(),
+        //        Name = "Schloss Schwerin",
+        //        Eroeffnet = 1857,
+        //        Geolocation = new Geolocation
+        //        {
+        //            Latitude = 53.624468,
+        //            Longitude = 11.418173,
+        //        }
+        //    },
+        //};
     }
 }

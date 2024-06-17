@@ -5,6 +5,8 @@
 
 <PageTitle>Medieval Germany</PageTitle>
 
+<ImageUpload />
+
 <section class="search-section">
     <div>
         <input type="text" @bind-value="@_searchArguments.Suchtext" @bind-value:event="onchange" @bind-value:after="Requery" placeholder="Suchtext..." />
@@ -36,8 +38,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await CastleService.SafeCastle();
-
         await Requery();
 
         await base.OnInitializedAsync();
