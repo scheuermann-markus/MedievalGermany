@@ -2,7 +2,7 @@
 
 <h3>Bild hochladen</h3>
 
-<InputFile OnChange="HandleSelected" />
+<InputFile OnChange="async (e) => await HandleSelected(e)" />
 <button @onclick="SaveImageToDatabase">Save</button>
 
 @if (!string.IsNullOrEmpty(base64Image))
@@ -13,6 +13,7 @@
 @code {
     private ElementReference inputFile;
     private string base64Image;
+    public long FileSizeLimit { get; set; } = 20 * 1024 * 1024;
 
     // private void OpenFileDialog()
     // {
@@ -22,26 +23,21 @@
     private async Task HandleSelected(InputFileChangeEventArgs e)
     {
         var file = e.File;
-        var resizedImageFile = await file.RequestImageFileAsync("image/png", 800, 600);
+        var resizedImageFile = await file.RequestImageFileAsync("image/jpg", 500, 500);
         var buffer = new byte[resizedImageFile.Size];
-        using (var stream = resizedImageFile.OpenReadStream())
-        {
-            await stream.ReadAsync(buffer, 0, buffer.Length);
-        }
-        base64Image = $"data:image/png;base64,{Convert.ToBase64String(buffer)}";
 
-        // Hier rufst du die Methode zum Speichern in die Datenbank auf
-        await SaveImageToDatabase();
+        using var stream = resizedImageFile.OpenReadStream(FileSizeLimit);
+        using var ms = new MemoryStream();
+
+        await stream.CopyToAsync(ms);
+        var imagebyte = ms.ToArray();
+        var baseImage = Convert.ToBase64String(imagebyte);
+
+        base64Image = $"data:{file.ContentType};base64,{baseImage}";
     }
 
     private Task SaveImageToDatabase()
     {
-
-        var hola = base64Image;
-        // Hier sollte der Code zum Speichern des Bildes in der Datenbank stehen
-        // Zum Beispiel:
-        // var image = new Image { Base64Data = base64Image };
-        // await imageRepository.SaveAsync(image);
         return Task.CompletedTask;
     }
 }
