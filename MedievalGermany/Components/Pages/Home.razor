@@ -30,6 +30,8 @@
 @code {
     IEnumerable<Castle>? Castles { get; set; } 
     private SearchArguments _searchArguments { get; set; } = new SearchArguments();
+    private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+
 
 
     protected override async Task OnInitializedAsync()
@@ -43,7 +45,8 @@
 
     async Task Requery()
     {
-        Castles = await CastleService.GetCastles(_searchArguments);
+        var cancellationToken = _cancellationTokenSource.Token;
+        Castles = await CastleService.GetCastles(_searchArguments, cancellationToken);
     }
 
     async Task HandleOnMapViewChange(BoundingBox boundingBox)

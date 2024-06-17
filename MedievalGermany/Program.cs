@@ -1,12 +1,18 @@
+using MediatR;
 using MedievalGermany.Application.Interfaces;
 using MedievalGermany.Application.Services;
 using MedievalGermany.Components;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+// Konfiguration von IMediator
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+
 builder.Services.AddScoped<ICastleService, CastleService>();
 builder.Services.AddSingleton<IRavenDbService, RavenDbService>();
 builder.Services.AddSingleton(e => e.GetRequiredService<IRavenDbService>().GetDocumentStore());
