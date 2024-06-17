@@ -27,17 +27,25 @@ namespace MedievalGermany.Application.Services
             var databaseName = _configuration.GetValue<string>("RavenDbSettings:DatabaseName");
             var certFile = _configuration.GetValue<string>("RavenDbSettings:CertFilePath");
 
-            var clientCertificate = new X509Certificate2(certFile);
-            documentStore = new DocumentStore
+            if (certFile != null)
             {
-                Certificate = clientCertificate,
-                Urls = serverUrl,
-                Database = databaseName,
-            };
+                var clientCertificate = new X509Certificate2(certFile);
+                documentStore = new DocumentStore
+                {
+                    Certificate = clientCertificate,
+                    Urls = serverUrl,
+                    Database = databaseName,
+                };
 
-            documentStore.Initialize();
+                documentStore.Initialize();
 
-            return documentStore;
+                return documentStore;
+            }
+            else
+            {
+                throw new Exception("Was unable to load Certificate in 'RavenDbService'");
+            }
+            
         }
     }
 }

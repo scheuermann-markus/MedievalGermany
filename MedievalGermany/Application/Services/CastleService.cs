@@ -1,4 +1,6 @@
-﻿using MedievalGermany.Application.Interfaces;
+﻿using MediatR;
+using MedievalGermany.Application.Interfaces;
+using MedievalGermany.Application.Queries;
 using MedievalGermany.Domain.Models;
 using Raven.Client.Documents;
 
@@ -7,10 +9,12 @@ namespace MedievalGermany.Application.Services
     public class CastleService : ICastleService
     {
         private readonly IDocumentStore _store;
+        private IMediator _mediator;
 
-        public CastleService(IDocumentStore store)
+        public CastleService(IDocumentStore store, IMediator mediator)
         {
             _store = store;
+            _mediator = mediator;
         }
 
         public async Task SafeCastle()
@@ -32,27 +36,11 @@ namespace MedievalGermany.Application.Services
         /// Gibt alle Castles zurück, die den SearchArguments entsprechen.
         /// </summary>
         /// <returns>IEnumerable<Castle></returns>
-        public async Task<IEnumerable<Castle>> GetCastles(SearchArguments searchArguments)
+        public async Task<IEnumerable<Castle>> GetCastles(SearchArguments searchArguments, CancellationToken cancellationToken)
         {
-            var data = Data;
+            var result = await _mediator.Send(new GetCastles.Query() { SearchArguments = searchArguments }, cancellationToken);
 
-            // Filter nach Suchtext
-            if (searchArguments.Suchtext != null)
-            {
-                data = Data.Where(e => e.Name.Contains(searchArguments.Suchtext, StringComparison.InvariantCultureIgnoreCase));
-            }
-
-            // Filter nach BoundingBox
-            if (searchArguments.BoundingBox != null)
-            {
-                var boundingBox = searchArguments.BoundingBox;
-                data = data.Where(e => e.Geolocation.Latitude > boundingBox.SouthWest.Latitude 
-                                    && e.Geolocation.Latitude < boundingBox.NorthEast.Latitude
-                                    && e.Geolocation.Longitude < boundingBox.NorthEast.Longitude
-                                    && e.Geolocation.Longitude > boundingBox.SouthWest.Longitude);
-            }
-
-            return data;
+            return result;
         }
 
 
