@@ -1,7 +1,9 @@
+using FluentValidation;
 using MediatR;
 using MedievalGermany.Application.Interfaces;
 using MedievalGermany.Application.Services;
 using MedievalGermany.Components;
+using MedievalGermany.Components.Pages;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,8 @@ builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<ICastleService, CastleService>();
 builder.Services.AddSingleton<IRavenDbService, RavenDbService>();
 builder.Services.AddSingleton(e => e.GetRequiredService<IRavenDbService>().GetDocumentStore());
+builder.Services.AddScoped<IValidator<UploadCastle.ViewModel>, UploadCastle.ViewModel.Validator>();
+
 
 var app = builder.Build();
 

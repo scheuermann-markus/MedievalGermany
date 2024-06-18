@@ -1,59 +1,74 @@
 ﻿@page "/upload-castle"
 @using System.ComponentModel.DataAnnotations
-@inject ICastleService CastleService
+@using FluentValidation
+@inject IValidator<ViewModel> Validator
 
 @if (Model != null)
 {
     <div class="upload-castle">
         <EditForm EditContext="_editContext" OnValidSubmit="HandleValidSubmit">
-        <DataAnnotationsValidator />
-
-        <div>
-            <label for="name">Name:</label>
-            <InputText id="name" @bind-Value="Model.Name" class="@GetInputClass(nameof(Model.Name))" />
-            <ValidationMessage For="() => Model.Name" />
-        </div>
-        <div>
-            <label for="eroeffnet">Eröffnet:</label>
-            <InputNumber id="eroeffnet" @bind-Value="Model.Eroeffnet" class="form-control" />
-            <ValidationMessage For="() => Model.Eroeffnet" />
-        </div>
-        <div>
-            <label for="wikipediaUrl">Wikipedia URL:</label>
-            <InputText id="wikipediaUrl" @bind-Value="Model.WikipediaUrl" class="form-control" />
-        </div>
-        <div>
-            <label for="imageUrl">Image URL:</label>
-            <InputText id="imageUrl" @bind-Value="Model.ImageUrl" class="form-control" />
-        </div>
-@*         <div>
-            <label for="latitude">Latitude:</label>
-            <InputNumber id="latitude" @bind-Value="Model.Geolocation.Latitude" class="form-control" />
-        </div>
-        <div>
-            <label for="longitude">Longitude:</label>
-            <InputNumber id="longitude" @bind-Value="Model.Geolocation.Longitude" class="form-control" />
-        </div> *@
-        <button type="submit">Speichern</button>
-    </EditForm>
-</div>  
+            <div>
+                <label for="name">Name:</label>
+                <InputText id="name" @bind-Value="Model.Name" class="@GetValidationCss(nameof(Model.Name))" />
+                <ValidationMessage For="() => Model.Name" />
+            </div>
+            <div>
+                <label for="eroeffnet">Eröffnet:</label>
+                <InputNumber id="eroeffnet" @bind-Value="Model.Eroeffnet" class="form-control" />
+                <ValidationMessage For="() => Model.Eroeffnet" />
+            </div>
+            <div>
+                <label for="wikipediaUrl">Wikipedia URL:</label>
+                <InputText id="wikipediaUrl" @bind-Value="Model.WikipediaUrl" class="form-control" />
+            </div>
+            <div>
+                <label for="imageUrl">Image URL:</label>
+                <InputText id="imageUrl" @bind-Value="Model.ImageUrl" class="form-control" />
+            </div>
+            <button type="submit">Speichern</button>
+        </EditForm>
+    </div>
 }
 
 @code {
     public ViewModel Model { get; set; } = new ViewModel();
     private EditContext _editContext;
+    private ValidationMessageStore _validationMessageStore;
+
 
     protected override void OnInitialized()
     {
         _editContext = new EditContext(Model);
+        _validationMessageStore = new ValidationMessageStore(_editContext);
+
+        // Validierung registrieren
+        _editContext.OnValidationRequested += ValidateModel;
     }
 
     private void HandleValidSubmit()
     {
+        _validationMessageStore.Clear();
         // Logik zum Speichern oder Verarbeiten der Daten
     }
 
-    private string GetInputClass(string propertyName)
+    private void ValidateModel(object? sender, ValidationRequestedEventArgs args)
+    {
+        var validationResult = Validator.Validate(Model);
+        _validationMessageStore.Clear();
+
+        if (!validationResult.IsValid)
+        {
+            foreach (var error in validationResult.Errors)
+            {
+                var fieldIdentifier = new FieldIdentifier(Model, error.PropertyName);
+                _validationMessageStore.Add(fieldIdentifier, error.ErrorMessage);
+            }
+        }
+
+        _editContext.NotifyValidationStateChanged();
+    }
+
+    private string GetValidationCss(string propertyName)
     {
         var fieldIdentifier = new FieldIdentifier(Model, propertyName);
         var validationMessages = _editContext.GetValidationMessages(fieldIdentifier);
@@ -62,11 +77,23 @@
 
     public class ViewModel
     {
-        [Required(ErrorMessage = "Name is required.")]
         public string Name { get; set; } = string.Empty;
-
         public int Eroeffnet { get; set; }
         public string? WikipediaUrl { get; set; }
         public string? ImageUrl { get; set; }
+
+        public class Validator : AbstractValidator<ViewModel>
+        {
+            public Validator()
+            {
+                RuleFor(e => e.Name).NotEmpty().WithMessage("Geben Sie einen Namen an.");
+            }
+        }
+    }
+
+    public void Dispose()
+    {
+        // Validierung disposen
+        _editContext.OnValidationRequested -= ValidateModel;
     }
 }

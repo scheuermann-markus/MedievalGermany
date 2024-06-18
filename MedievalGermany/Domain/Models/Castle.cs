@@ -1,4 +1,7 @@
-﻿namespace MedievalGermany.Domain.Models
+﻿using FluentValidation;
+using static MedievalGermany.Components.Pages.UploadCastle;
+
+namespace MedievalGermany.Domain.Models
 {
     public class Castle
     {
