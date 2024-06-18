@@ -25,6 +25,16 @@
                 <label for="imageUrl">Image URL:</label>
                 <InputText id="imageUrl" @bind-Value="Model.ImageUrl" class="form-control" />
             </div>
+            <div>
+                <label for="latitude">Latitude:</label>
+                <InputNumber id="latitude" @bind-Value="Model.Latitude" class="@GetValidationCss(nameof(Model.Latitude))" />
+                <ValidationMessage For="() => Model.Latitude" />
+            </div>
+            <div>
+                <label for="longitude">Longitude:</label>
+                <InputNumber id="longitude" @bind-Value="Model.Longitude" class="@GetValidationCss(nameof(Model.Longitude))" />
+                <ValidationMessage For="() => Model.Longitude" />
+            </div>
             <button type="submit">Speichern</button>
         </EditForm>
     </div>
@@ -81,12 +91,49 @@
         public int Eroeffnet { get; set; }
         public string? WikipediaUrl { get; set; }
         public string? ImageUrl { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
         public class Validator : AbstractValidator<ViewModel>
         {
             public Validator()
             {
                 RuleFor(e => e.Name).NotEmpty().WithMessage("Geben Sie einen Namen an.");
+                RuleFor(e => e.Latitude).Cascade(CascadeMode.StopOnFirstFailure)
+                                        .NotEmpty()
+                                        .WithMessage("Bitte geben Sie eine Latitude an.")
+                                        .Must((viewmodel, validatorcontext) =>
+                                            ValidateLatitude(viewmodel.Latitude))
+                                        .WithMessage("Latitude muss zwischen 47.2 und 55.5 sein.");
+                RuleFor(e => e.Longitude).Cascade(CascadeMode.StopOnFirstFailure)
+                                        .NotEmpty()
+                                        .WithMessage("Bitte geben Sie eine Longitude an.")
+                                        .Must((viewmodel, validatorcontext) =>
+                                            ValidateLongitude(viewmodel.Longitude))
+                                        .WithMessage("Longitude muss zwischen 5.8 und 14.86 sein.");
+            }
+        }
+
+        static bool ValidateLatitude(double latitude)
+        {
+            if (latitude >= 47.2 && latitude <= 55.5)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        static bool ValidateLongitude(double longitude)
+        {
+            if (longitude >= 5.8 && longitude <= 14.86)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
