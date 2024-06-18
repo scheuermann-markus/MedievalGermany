@@ -7,11 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\css\upload-castle.css" />
+    <Compile Remove="Domain\Interfaces\**" />
+    <Content Remove="Domain\Interfaces\**" />
+    <EmbeddedResource Remove="Domain\Interfaces\**" />
+    <None Remove="Domain\Interfaces\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\Interfaces\" />
+    <_ContentIncludedByDefault Remove="wwwroot\css\upload-castle.css" />
   </ItemGroup>
 
   <ItemGroup>
