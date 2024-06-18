@@ -1,6 +1,7 @@
 ﻿@page "/upload-castle"
 @using System.ComponentModel.DataAnnotations
 @using FluentValidation
+@inject ICastleService CastleService
 @inject IValidator<ViewModel> Validator
 
 @if (Model != null)
@@ -55,10 +56,25 @@
         _editContext.OnValidationRequested += ValidateModel;
     }
 
-    private void HandleValidSubmit()
+    private async Task HandleValidSubmit()
     {
-        _validationMessageStore.Clear();
-        // Logik zum Speichern oder Verarbeiten der Daten
+        _validationMessageStore.Clear(); // Vorherige Validation-Messages entfernen
+
+        // ViewModel auf Castle-Klasse mappen
+        var caslte = new Castle
+        {
+            Name = Model.Name,
+            Eroeffnet = Model.Eroeffnet,
+            WikipediaUrl = Model.WikipediaUrl,
+            ImageUrl = Model.ImageUrl,
+            Geolocation = new Geolocation
+            {
+                Latitude = Model.Latitude,
+                Longitude = Model.Longitude
+            }
+        };
+
+        await CastleService.SafeCastle(caslte);
     }
 
     private void ValidateModel(object? sender, ValidationRequestedEventArgs args)

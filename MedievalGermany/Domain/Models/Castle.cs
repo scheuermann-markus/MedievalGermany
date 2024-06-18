@@ -1,13 +1,10 @@
-﻿using FluentValidation;
-using static MedievalGermany.Components.Pages.UploadCastle;
-
-namespace MedievalGermany.Domain.Models
+﻿namespace MedievalGermany.Domain.Models
 {
     public class Castle
     {
-        public string Id { get; set; }
+        public string Id { get; set; } = "Castle/" + Guid.NewGuid().ToString();
         public string Name { get; set; }
-        public int Eroeffnet { get; set; }
+        public int? Eroeffnet { get; set; }
         public string? WikipediaUrl { get; set; }
         public string? ImageUrl { get; set; }
         public Geolocation? Geolocation { get; set; }

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using MedievalGermany.Application.Commands;
 using MedievalGermany.Application.Interfaces;
 using MedievalGermany.Application.Queries;
 using MedievalGermany.Domain.Models;
@@ -17,21 +18,10 @@ namespace MedievalGermany.Application.Services
             _mediator = mediator;
         }
 
-        public async Task SafeCastle()
+        public async Task SafeCastle(Castle castle)
         {
-            //var data = Data.ToList();
-            //var caslte = data[2];
-
-            //using (var session = _store.OpenAsyncSession())
-            //{
-            //    await session.StoreAsync(caslte);
-            //    await session.SaveChangesAsync();
-
-            //};
-
-            throw new NotImplementedException();
+            await _mediator.Send(new SafeCastleCommand.Command() { Castle = castle });   
         }
-
 
         /// <summary>
         /// Gibt alle Castles zurück, die den SearchArguments entsprechen.

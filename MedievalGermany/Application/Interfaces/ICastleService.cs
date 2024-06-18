@@ -5,6 +5,6 @@ namespace MedievalGermany.Application.Interfaces
     public interface ICastleService
     {
         Task<IEnumerable<Castle>> GetCastles(SearchArguments searchArguments, CancellationToken cancellationToken);
-        Task SafeCastle();
+        Task SafeCastle(Castle castle);
     }
 }
