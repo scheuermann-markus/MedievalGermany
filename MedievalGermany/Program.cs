@@ -1,10 +1,14 @@
 using FluentValidation;
 using MediatR;
+using MedievalGermany.Application.Indexes;
 using MedievalGermany.Application.Interfaces;
 using MedievalGermany.Application.Services;
 using MedievalGermany.Components;
 using MedievalGermany.Components.Pages;
+using Raven.Client.Documents;
+using Raven.Client.Documents.Indexes;
 using System.Reflection;
+using static System.Formats.Asn1.AsnWriter;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +26,14 @@ builder.Services.AddScoped<IValidator<UploadCastle.ViewModel>, UploadCastle.View
 
 
 var app = builder.Build();
+
+// Índexes erstellen
+using (var scope = app.Services.CreateScope())
+{
+    var documentStore = scope.ServiceProvider.GetRequiredService<IDocumentStore>();
+    await IndexCreation.CreateIndexesAsync(typeof(Castles_ByName).Assembly, documentStore);
+}
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
