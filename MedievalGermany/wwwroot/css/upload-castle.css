@@ -1,3 +1,76 @@
 ﻿.upload-castle {
-
+    width: 60vw;
+    text-align: center;
+    margin: 3rem auto;
+    border: 1px solid #00000050;
+    padding: 5rem;
+    border-radius: 3px;
+    background-color: #F2F2F2;
 }
+
+.upload-castle__row--one,
+.upload-castle__row--two,
+.upload-castle__row--three {
+    display: grid;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+
+.upload-castle__row--one {
+    grid-template-columns: 2fr 1fr;
+}
+.upload-castle__row--two {
+    grid-template-columns: 1fr 1fr;
+}
+.upload-castle__row--three {
+    grid-template-columns: 1fr 1fr;
+}
+
+.upload-castle__input-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.1rem;
+}
+
+    .upload-castle__input-wrapper input {
+        width: 100%;
+        height: 30px;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px;
+        border: 1px solid #00000050;
+        border-radius: 3px;
+        font-size: 1rem;
+        padding: 0.25rem 0.5rem;
+        transition: all 0.1s;
+    }
+
+        .upload-castle__input-wrapper input:focus {
+            outline: none;
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 6px;
+        }
+
+        .upload-castle__validation-message {
+            position: absolute;
+            color: red;
+            font-size: 0.9rem;
+            bottom: -20px;
+        }
+
+.upload-castle__speichern-btn {
+    height: 40px;
+    min-width: 160px;
+    padding: 0.25rem 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px;
+    border: 1px solid #00000050;
+    border-radius: 3px;
+    background-color: var(--primary-color);
+    font-size: 1rem;
+    transition: all 0.1s;
+}
+
+    .upload-castle__speichern-btn:hover {
+        cursor: pointer;
+        background-color: var(--primary-color-20-brighter);
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 6px;
+    }

@@ -6,43 +6,53 @@
 
 @if (Model != null)
 {
-    <div class="upload-castle">
-        <EditForm EditContext="_editContext" OnValidSubmit="HandleValidSubmit">
-            <div>
-                <label for="name">Name:</label>
-                <InputText id="name" @bind-Value="Model.Name" class="@GetValidationCss(nameof(Model.Name))" />
-                <ValidationMessage For="() => Model.Name" />
+    <EditForm EditContext="_editContext" OnValidSubmit="HandleValidSubmit">
+        <div class="upload-castle">
+
+            <div class="upload-castle__row--one">
+                <div class="upload-castle__input-wrapper">
+                    <label for="name">Name</label>
+                    <InputText @bind-Value="Model.Name" class="@GetValidationCss(nameof(Model.Name))" placeholder="Schloss Neuschwanstein" />
+                    <ValidationMessage For="() => Model.Name" class="upload-castle__validation-message" />
+                </div>
+                <div class="upload-castle__input-wrapper">
+                    <label for="eroeffnet">Eröffnet</label>
+                    <InputNumber @bind-Value="Model.Eroeffnet" />
+                    <ValidationMessage For="() => Model.Eroeffnet" class="upload-castle__validation-message" />
+                </div>
             </div>
-            <div>
-                <label for="eroeffnet">Eröffnet:</label>
-                <InputNumber id="eroeffnet" @bind-Value="Model.Eroeffnet" class="form-control" />
-                <ValidationMessage For="() => Model.Eroeffnet" />
+
+            <div class="upload-castle__row--two">
+                <div class="upload-castle__input-wrapper">
+                    <label for="wikipediaUrl">Wikipedia URL</label>
+                    <InputText @bind-Value="Model.WikipediaUrl" placeholder="..." />
+                </div>
+                <div class="upload-castle__input-wrapper">
+                    <label for="imageUrl">Image URL</label>
+                    <InputText @bind-Value="Model.ImageUrl" placeholder="..." />
+                </div>
             </div>
-            <div>
-                <label for="wikipediaUrl">Wikipedia URL:</label>
-                <InputText id="wikipediaUrl" @bind-Value="Model.WikipediaUrl" class="form-control" />
+
+            <div class="upload-castle__row--three">
+                <div class="upload-castle__input-wrapper">
+                    <label for="latitude">Latitude</label>
+                    <InputNumber @bind-Value="Model.Latitude" class="@GetValidationCss(nameof(Model.Latitude))" />
+                    <ValidationMessage For="() => Model.Latitude" class="upload-castle__validation-message" />
+                </div>
+                <div class="upload-castle__input-wrapper">
+                    <label for="longitude">Longitude</label>
+                    <InputNumber @bind-Value="Model.Longitude" class="@GetValidationCss(nameof(Model.Longitude))" />
+                    <ValidationMessage For="() => Model.Longitude" class="upload-castle__validation-message" />
+                </div>
             </div>
-            <div>
-                <label for="imageUrl">Image URL:</label>
-                <InputText id="imageUrl" @bind-Value="Model.ImageUrl" class="form-control" />
-            </div>
-            <div>
-                <label for="latitude">Latitude:</label>
-                <InputNumber id="latitude" @bind-Value="Model.Latitude" class="@GetValidationCss(nameof(Model.Latitude))" />
-                <ValidationMessage For="() => Model.Latitude" />
-            </div>
-            <div>
-                <label for="longitude">Longitude:</label>
-                <InputNumber id="longitude" @bind-Value="Model.Longitude" class="@GetValidationCss(nameof(Model.Longitude))" />
-                <ValidationMessage For="() => Model.Longitude" />
-            </div>
-            <button type="submit">Speichern</button>
-        </EditForm>
-    </div>
+
+            <button type="submit" class="upload-castle__speichern-btn">Speichern</button>
+        </div>
+    </EditForm>
 }
 
 @code {
-    public ViewModel Model { get; set; } = new ViewModel();
+    public ViewModel Model { get; set; } = new ViewModel() { Eroeffnet = 1884 };
     private EditContext _editContext;
     private ValidationMessageStore _validationMessageStore;
 
