@@ -4,6 +4,7 @@ using MedievalGermany.Application.Interfaces;
 using MedievalGermany.Application.Queries;
 using MedievalGermany.Domain.Models;
 using Raven.Client.Documents;
+using static Raven.Client.Constants;
 
 namespace MedievalGermany.Application.Services
 {
@@ -11,16 +12,21 @@ namespace MedievalGermany.Application.Services
     {
         private readonly IDocumentStore _store;
         private IMediator _mediator;
+        private readonly IConfiguration _configuration;
 
-        public CastleService(IDocumentStore store, IMediator mediator)
+        public CastleService(IDocumentStore store, IMediator mediator, IConfiguration configuration)
         {
             _store = store;
             _mediator = mediator;
+            _configuration = configuration;
         }
 
-        public async Task SafeCastle(Castle castle)
+        public async Task SafeCastle(Castle castle, string uploadKey)
         {
-            await _mediator.Send(new SafeCastleCommand.Command() { Castle = castle });   
+            if (uploadKey == _configuration.GetValue<string>("Upload:UploadKey"))
+            {
+                await _mediator.Send(new SafeCastleCommand.Command() { Castle = castle });   
+            }
         }
 
         /// <summary>

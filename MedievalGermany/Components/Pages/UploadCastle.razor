@@ -44,6 +44,11 @@
                     <InputNumber @bind-Value="Model.Longitude" class="@GetValidationCss(nameof(Model.Longitude))" />
                     <ValidationMessage For="() => Model.Longitude" class="upload-castle__validation-message" />
                 </div>
+                <div class="upload-castle__input-wrapper">
+                    <label for="key">Key</label>
+                    <InputText @bind-Value="Model.Key" class="@GetValidationCss(nameof(Model.Key))" placeholder="..." />
+                    <ValidationMessage For="() => Model.Key" class="upload-castle__validation-message" />
+                </div>
             </div>
 
             <button type="submit" class="upload-castle__speichern-btn">Speichern</button>
@@ -84,7 +89,7 @@
             }
         };
 
-        await CastleService.SafeCastle(caslte);
+        await CastleService.SafeCastle(caslte, Model.Key);
     }
 
     private void ValidateModel(object? sender, ValidationRequestedEventArgs args)
@@ -119,11 +124,17 @@
         public string? ImageUrl { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public string Key { get; set; } = string.Empty;
+
 
         public class Validator : AbstractValidator<ViewModel>
         {
-            public Validator()
+            private readonly string _uploadKey;
+
+            public Validator(IConfiguration configuration)
             {
+                _uploadKey = configuration.GetValue<string>("Upload:UploadKey");
+
                 RuleFor(e => e.Name).NotEmpty().WithMessage("Geben Sie einen Namen an.");
                 RuleFor(e => e.Latitude).Cascade(CascadeMode.StopOnFirstFailure)
                                         .NotEmpty()
@@ -137,6 +148,12 @@
                                         .Must((viewmodel, validatorcontext) =>
                                             ValidateLongitude(viewmodel.Longitude))
                                         .WithMessage("Longitude muss zwischen 5.8 und 14.86 sein.");
+                RuleFor(e => e.Key).Cascade(CascadeMode.StopOnFirstFailure)
+                                        .NotEmpty()
+                                        .WithMessage("Please provide a valid key.")
+                                        .Must((viewmodel, validatorcontext) =>
+                                            ValidateKey(viewmodel.Key, _uploadKey))
+                                        .WithMessage("This key is not valid.");
             }
         }
 
@@ -156,6 +173,18 @@
         static bool ValidateLongitude(double longitude)
         {
             if (longitude >= 5.8 && longitude <= 14.86)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        // Validation function for Key
+        static bool ValidateKey(string key, string uploadKey)
+        {
+            if (key == uploadKey)
             {
                 return true;
             }

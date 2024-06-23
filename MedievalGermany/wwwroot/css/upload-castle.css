@@ -23,7 +23,7 @@
     grid-template-columns: 1fr 1fr;
 }
 .upload-castle__row--three {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .upload-castle__input-wrapper {
