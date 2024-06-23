@@ -25,11 +25,22 @@ namespace MedievalGermany.Application.Services
 
             var serverUrl = _configuration.GetSection("RavenDbSettings:Urls").Get<string[]>();
             var databaseName = _configuration.GetValue<string>("RavenDbSettings:DatabaseName");
-            var certFile = _configuration.GetValue<string>("RavenDbSettings:CertFilePath");
+            var certThumbprint = _configuration.GetValue<string>("RavenDbSettings:CertThumbprint");
 
-            if (certFile != null)
+            X509Certificate2 clientCertificate = null;
+            using (var store = new X509Store(StoreName.My, StoreLocation.LocalMachine))
             {
-                var clientCertificate = new X509Certificate2(certFile);
+                store.Open(OpenFlags.ReadOnly);
+                var certCollection = store.Certificates.Find(X509FindType.FindByThumbprint, certThumbprint, false);
+                if (certCollection.Count > 0)
+                {
+                    clientCertificate = certCollection[0];
+                }
+                store.Close();
+            }
+
+            if (clientCertificate != null)
+            {
                 documentStore = new DocumentStore
                 {
                     Certificate = clientCertificate,
