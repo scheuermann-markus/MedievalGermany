@@ -21,7 +21,7 @@
     border-radius: 3px;
     font-size: 1rem;
     padding: 0.25rem 0.5rem;
-    transition: all 0.1s;
+    transition: all 0.2s;
 }
 
 .home__text-search:focus {

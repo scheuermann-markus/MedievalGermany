@@ -1,10 +1,16 @@
 ﻿
-<div class="castle-card">
-    <div class="castle-card__header">
-        <span>@Castle.Name</span>
-        <span>Baujahr: @Castle.Eroeffnet</span>
+<a href="@Castle.WikipediaUrl" target="_blank" class="castle-card">
+    <img src="@Castle.ImageUrl" alt="castle image" class="castle-card__image" />
+
+    <div class="castle-card__right-side">
+        <div class="castle-card__name">@Castle.Name</div>
+        <div class="castle-card__infos">
+            <div>Eröffnet: @Castle.Eroeffnet</div>
+            <div>Latitude: @Castle.Geolocation.Latitude</div>
+            <div>Longitude: @Castle.Geolocation.Longitude</div>
+        </div>
     </div>
-</div>
+</a>
 
 
 

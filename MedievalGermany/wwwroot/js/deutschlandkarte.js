@@ -70,7 +70,7 @@ const GetMarkerClusterGroup = () => {
 
 const GetMarkers = async (castles) => {
     var allMarkers = [];
-    let markerColor = "#059212";
+    let markerColor = "#76ABAE";
 
     for (let i = 0; i < castles.length; i++) {
         let name = castles[i].name;
