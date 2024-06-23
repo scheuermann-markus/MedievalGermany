@@ -1,19 +1,39 @@
-﻿.search-section {
-    margin-top: 3rem;
-}
-
-.feed-section {
+﻿.home {
     display: grid;
     grid-template-columns: 3fr 2fr;
-    gap: 3rem;
-
-    margin-top: 3rem;
+    gap: 5rem;
+    margin-top: 2rem;
 }
 
-.feed__cards-container {
+.home__left {
 
 }
 
-.feed__karte-wrapper {
+.home__right {
+
 }
 
+.home__text-search {
+    width: calc(100% - 18px);
+    height: 30px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px;
+    border: 1px solid #00000050;
+    border-radius: 3px;
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
+    transition: all 0.1s;
+}
+
+.home__text-search:focus {
+    outline: none;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 6px;
+}
+
+.home__divider {
+    margin: 1rem 0;
+    color: #dedede;
+}
+
+.home__deutschlandkarte-wrapper {
+
+}

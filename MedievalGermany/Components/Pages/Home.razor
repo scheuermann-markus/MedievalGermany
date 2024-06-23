@@ -5,26 +5,31 @@
 
 <PageTitle>Medieval Germany</PageTitle>
 
-<section class="search-section">
-    <div>
-        <input type="text" @bind-value="@_searchArguments.Suchtext" @bind-value:event="onchange" @bind-value:after="Requery" placeholder="Suchtext..." />
+<section class="home">
+    <div class="home__left">
+        <input class="home__text-search" type="text" @bind-value="@_searchArguments.Suchtext" @bind-value:event="onchange" @bind-value:after="Requery" placeholder="Suchtext..." />
+
+        <hr class="home__divider" />
+
+        @if (Castles != null)
+        {
+            <div>
+                @foreach (var castle in Castles)
+                {
+                    <CastleCard Castle="@castle" />
+                }
+            </div>
+        }
     </div>
-</section>
 
-<section class="feed-section">
-    @if (Castles != null)
-    {
-        <div class="feed__cards-container">
-            @foreach (var castle in Castles)
-            {
-                <CastleCard Castle="@castle" />
-            }
-        </div>
-
-        <div class="feed__karte-wrapper">
-            <Deutschlandkarte Castles="@Castles" OnMapViewChange="HandleOnMapViewChange" />
-        </div>
-    }
+    <div class="home__right">
+        @if (Castles != null)
+        {
+            <div class="home__deutschlandkarte-wrapper">
+                <Deutschlandkarte Castles="@Castles" OnMapViewChange="HandleOnMapViewChange" />
+            </div>
+        }
+    </div>
 </section>
 
 @code {
