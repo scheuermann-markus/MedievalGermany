@@ -1,9 +1,18 @@
 ﻿.top-navigation {
     height: 60px;
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--text-color)
+}
+
+.top-navigation__left-side {
+
+}
+
+.top-navigation__right-side {
+    display: flex; 
+    gap: 1.5rem;
 }
 
 ::deep .nav-link {

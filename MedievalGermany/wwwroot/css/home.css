@@ -34,6 +34,10 @@
     color: #dedede;
 }
 
-.home__deutschlandkarte-wrapper {
+.home__cards-wrapper {
+    height: calc(600px - 74px);
+    overflow-x: auto;
+}
 
+.home__deutschlandkarte-wrapper {
 }

@@ -15,6 +15,8 @@ body {
 .deutschland-karte {
     height: 600px;
     width: 100%;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 4px;
 }
 
 .deutschland-karte__cluster {
@@ -28,4 +30,19 @@ body {
 
 .input-validation-error {
     border: 1px solid red !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px #dedede;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 10px;
 }
