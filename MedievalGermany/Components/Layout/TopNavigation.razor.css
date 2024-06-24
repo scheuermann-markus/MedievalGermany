@@ -13,6 +13,11 @@
 .top-navigation__right-side {
     display: flex; 
     gap: 1.5rem;
+    align-items: center; 
+}
+
+.top-navigation__git-hub {
+    width: 24px;
 }
 
 ::deep .nav-link {
