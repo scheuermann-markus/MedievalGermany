@@ -43,6 +43,6 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 10px;
+    background: #38697e;
+    border-radius: 3px;
 }

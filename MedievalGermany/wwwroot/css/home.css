@@ -22,6 +22,7 @@
     font-size: 1rem;
     padding: 0.25rem 0.5rem;
     transition: all 0.2s;
+    font-weight: bold; 
 }
 
 .home__text-search:focus {
@@ -41,3 +42,20 @@
 
 .home__deutschlandkarte-wrapper {
 }
+
+.home__text-search-wrapper {
+    position: relative; 
+}
+
+.home__text-search__icon {
+    height: 18px;
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+}
+
+    .home__text-search__icon:hover {
+        cursor: pointer;
+        fill: var(--primary-color-20-brighter);
+    }
