@@ -1,0 +1,33 @@
+﻿.dktooltip {
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    max-width: 280px;
+    _min-width: 180px;
+    pointer-events: auto;
+}
+
+.dktooltip__tooltip-content {
+    margin-left: 10px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.dktooltip__image {
+    height: 50px;
+    min-width: 50px;
+    max-width: 75px;
+    object-fit: cover;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+.dktooltip__castle-name {
+    font-weight: bold;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.dktooltip__additional-text {
+    color: #808080;
+}

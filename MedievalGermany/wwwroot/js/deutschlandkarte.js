@@ -73,7 +73,10 @@ const GetMarkers = async (castles) => {
     let markerColor = "#38697e";
 
     for (let i = 0; i < castles.length; i++) {
+        let url = castles[i].wikipediaUrl;
         let name = castles[i].name;
+        let eroeffnet = castles[i].eroeffnet;
+        let imageUrl = castles[i].imageUrl;
 
         let marker = L.marker([castles[i].geolocation.latitude, castles[i].geolocation.longitude], {
             // Customize Icon
@@ -83,7 +86,13 @@ const GetMarkers = async (castles) => {
                 className: "deutschlandkarte__icon",
                 html: '<svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="40.000000pt" height="40.000000pt" viewBox="0 0 360.000000 360.000000" preserveAspectRatio="xMidYMid meet"> <g transform="translate(0.000000, 260.000000) scale(0.100000,-0.100000)" fill="' + markerColor + '" stroke="none"> <path d="M657 2335 c-270 -51 -474 -231 -563 -495 -27 -78 -29 -96 -29 -230 1 -130 3 -153 28 -225 35 -105 87 -193 167 -279 219 -239 373 -520 475 -870 20 -65 38 -136 41 -157 9 -56 21 -56 29 -1 10 69 69 260 122 392 89 226 211 427 358 591 147 164 212 294 235 472 27 199 -51 434 -194 585 -163 175 -431 261 -669 217z m233 -476 c60 -27 88 -54 116 -114 44 -94 24 -216 -48 -282 -90 -84 -264 -80 -345 8 -84 92 -80 266 8 345 73 65 182 83 269 43z"/></g></svg>'
             }),
-        });
+        })
+        // Add onClick to the marker
+        .on("click", function () {
+        window.open(url);
+        })
+        // Add Tooltip to the marker
+       .bindTooltip(() => GetTooltip(imageUrl, name, eroeffnet));
 
         allMarkers[i] = marker;
     }
@@ -100,4 +109,30 @@ const OnBoundingBoxChanged = (map, dotNetObject) => {
     }
 
     dotNetObject.invokeMethodAsync('BoundingBoxChanged', currentMapView._southWest.lat, currentMapView._southWest.lng, currentMapView._northEast.lat, currentMapView._northEast.lng);
+}
+
+const GetTooltip = (imageUrl, name, additionalText) => {
+    // Build HTML as a string
+    const tooltipHTML = `
+        <div class="dktooltip">
+            <img class="dktooltip__image" src="${imageUrl}" />
+            <div class="dktooltip__tooltip-content">
+                <div class="dktooltip__castle-name">${name}</div>
+                <hr style="margin: 3px 0">
+                <span class="dktooltip__additional-text">${additionalText}</span>
+            </div>
+        </div>
+    `;
+
+    // Convert the string to an element
+    const template = document.createElement('template');
+    template.innerHTML = tooltipHTML.trim();
+    const tooltipElement = template.content.firstChild;
+
+    // Add EventListener 'click'
+    tooltipElement.addEventListener("click", () => {
+        window.open(url);
+    });
+
+    return tooltipElement;
 }
