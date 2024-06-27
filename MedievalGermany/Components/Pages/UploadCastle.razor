@@ -131,9 +131,9 @@
         {
             private readonly string _uploadKey;
 
-            public Validator(IConfiguration configuration)
+            public Validator()
             {
-                _uploadKey = configuration.GetValue<string>("Upload:UploadKey");
+                _uploadKey = Environment.GetEnvironmentVariable("UPLOAD_KEY");
 
                 RuleFor(e => e.Name).NotEmpty().WithMessage("Geben Sie einen Namen an.");
                 RuleFor(e => e.Latitude).Cascade(CascadeMode.StopOnFirstFailure)
