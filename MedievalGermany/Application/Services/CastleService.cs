@@ -12,18 +12,18 @@ namespace MedievalGermany.Application.Services
     {
         private readonly IDocumentStore _store;
         private IMediator _mediator;
-        private readonly IConfiguration _configuration;
 
-        public CastleService(IDocumentStore store, IMediator mediator, IConfiguration configuration)
+        public CastleService(IDocumentStore store, IMediator mediator)
         {
             _store = store;
             _mediator = mediator;
-            _configuration = configuration;
         }
 
-        public async Task SafeCastle(Castle castle, string uploadKey)
+        public async Task SafeCastle(Castle castle, string key)
         {
-            if (uploadKey == _configuration.GetValue<string>("Upload:UploadKey"))
+            var uploadKey = Environment.GetEnvironmentVariable("UPLOAD_KEY");
+
+            if (key == uploadKey)
             {
                 await _mediator.Send(new SafeCastleCommand.Command() { Castle = castle });   
             }
