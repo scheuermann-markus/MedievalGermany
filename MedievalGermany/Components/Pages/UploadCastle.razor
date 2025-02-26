@@ -133,7 +133,9 @@
 
             public Validator()
             {
-                _uploadKey = Environment.GetEnvironmentVariable("UPLOAD_KEY");
+                //_uploadKey = Environment.GetEnvironmentVariable("UPLOAD_KEY");
+
+                _uploadKey = "dummyKey";
 
                 RuleFor(e => e.Name).NotEmpty().WithMessage("Geben Sie einen Namen an.");
                 RuleFor(e => e.Latitude).Cascade(CascadeMode.StopOnFirstFailure)

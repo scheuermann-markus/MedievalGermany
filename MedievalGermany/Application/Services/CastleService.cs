@@ -3,25 +3,27 @@ using MedievalGermany.Application.Commands;
 using MedievalGermany.Application.Interfaces;
 using MedievalGermany.Application.Queries;
 using MedievalGermany.Domain.Models;
-using Raven.Client.Documents;
-using static Raven.Client.Constants;
 
 namespace MedievalGermany.Application.Services
 {
     public class CastleService : ICastleService
     {
-        private readonly IDocumentStore _store;
         private IMediator _mediator;
 
-        public CastleService(IDocumentStore store, IMediator mediator)
+        public CastleService(IMediator mediator)
         {
-            _store = store;
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Speichert eine Castle in die Datenbank
+        /// </summary>
+        /// <param name="castle"></param>
+        /// <param name="key"></param>
         public async Task SafeCastle(Castle castle, string key)
         {
-            var uploadKey = Environment.GetEnvironmentVariable("UPLOAD_KEY");
+            //var uploadKey = Environment.GetEnvironmentVariable("UPLOAD_KEY");
+            var uploadKey = "dummyKey";
 
             if (key == uploadKey)
             {
