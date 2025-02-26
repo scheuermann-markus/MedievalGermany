@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-
-namespace MedievalGermany.Application.Extensions;
+﻿namespace MedievalGermany.Application.Extensions;
 
 public static class StringExtensions
 {
