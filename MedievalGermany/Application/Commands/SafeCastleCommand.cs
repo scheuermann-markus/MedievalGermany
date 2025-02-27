@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using MedievalGermany.Domain.Models;
-using Raven.Client.Documents;
+using MedievalGermany.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace MedievalGermany.Application.Commands;
 
@@ -13,17 +14,30 @@ public class SafeCastleCommand
 
     public class Handler : IRequestHandler<Command, Unit>
     {
-        private IDocumentStore _store;
-        public Handler(IDocumentStore store)
+        private readonly ApplicationDbContext _dbContext;
+        
+        public Handler(ApplicationDbContext dbContext)
         {
-            _store = store;
+            _dbContext = dbContext;
         }
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            using var session = _store.OpenAsyncSession();
-            await session.StoreAsync(request.Castle, cancellationToken);
-            await session.SaveChangesAsync(cancellationToken);
+            var existingCastle = await _dbContext.Castles
+                .FirstOrDefaultAsync(c => c.Id == request.Castle.Id, cancellationToken);
+                
+            if (existingCastle == null)
+            {
+                // Add new castle
+                await _dbContext.Castles.AddAsync(request.Castle, cancellationToken);
+            }
+            else
+            {
+                // Update existing castle
+                _dbContext.Entry(existingCastle).CurrentValues.SetValues(request.Castle);
+            }
+            
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             return Unit.Value;
         }

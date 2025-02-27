@@ -1,14 +1,12 @@
 using FluentValidation;
 using MediatR;
-using MedievalGermany.Application.Indexes;
 using MedievalGermany.Application.Interfaces;
 using MedievalGermany.Application.Services;
 using MedievalGermany.Components;
 using MedievalGermany.Components.Pages;
-using Raven.Client.Documents;
-using Raven.Client.Documents.Indexes;
 using System.Reflection;
-using static System.Formats.Asn1.AsnWriter;
+using MedievalGermany.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,24 +14,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-// Konfiguration von IMediator
-builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
+// Choose connection string based on environment
+string connectionString = builder.Environment.IsDevelopment()
+    ? "RemoteConnection"
+    : "LocalConnection";
 
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly()); // IMediator
 builder.Services.AddScoped<ICastleService, CastleService>();
-builder.Services.AddSingleton<IRavenDbService, RavenDbService>();
-builder.Services.AddSingleton(e => e.GetRequiredService<IRavenDbService>().GetDocumentStore());
 builder.Services.AddScoped<IValidator<UploadCastle.ViewModel>, UploadCastle.ViewModel.Validator>();
 
+// PostgreSQL Connection hinzuf√ºgen
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString(connectionString)));
 
 var app = builder.Build();
-
-// Õndexes erstellen
-using (var scope = app.Services.CreateScope())
-{
-    var documentStore = scope.ServiceProvider.GetRequiredService<IDocumentStore>();
-    await IndexCreation.CreateIndexesAsync(typeof(Castles_ByName).Assembly, documentStore);
-}
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
