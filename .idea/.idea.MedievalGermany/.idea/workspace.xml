@@ -9,7 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8fe9d6c5-ce65-470d-aaa2-49f803e24eb4" name="Changes" comment="" />
+    <list default="true" id="8fe9d6c5-ce65-470d-aaa2-49f803e24eb4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.MedievalGermany/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MedievalGermany/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MedievalGermany/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/MedievalGermany/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MedievalGermany/Components/Pages/Impressum.razor" beforeDir="false" afterPath="$PROJECT_DIR$/MedievalGermany/Components/Pages/Impressum.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MedievalGermany/wwwroot/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/MedievalGermany/wwwroot/css/home.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,20 +66,26 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     ".NET Launch Settings Profile.MedievalGermany: IIS Express.executor": "Debug",
-    ".NET Launch Settings Profile.MedievalGermany: http.executor": "Debug",
+    ".NET Launch Settings Profile.MedievalGermany: http.executor": "Run",
+    "Publish to folder.Publish to folder.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "terminal",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager" selected=".NET Launch Settings Profile.MedievalGermany: http">
+    <configuration name="Publish to folder" type="DotNetFolderPublish" factoryName="Publish to folder">
+      <riderPublish configuration="Release" platform="Any CPU" runtime="Portable" target_folder="$PROJECT_DIR$/MedievalGermany/publish" target_framework="net8.0" uuid_high="-7723615745086308332" uuid_low="-6500563026023389406" />
+      <method v="2" />
+    </configuration>
     <configuration name="MedievalGermany: IIS Express" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/MedievalGermany/MedievalGermany.csproj" />
       <option name="LAUNCH_PROFILE_TFM" value="net8.0" />
@@ -120,6 +131,12 @@
         <option name="Build" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue=".NET Launch Settings Profile.MedievalGermany: http" />
+      <item itemvalue=".NET Launch Settings Profile.MedievalGermany: https" />
+      <item itemvalue=".NET Launch Settings Profile.MedievalGermany: IIS Express" />
+      <item itemvalue="Publish to folder.Publish to folder" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -152,6 +169,8 @@
       <workItem from="1740555202037" duration="10475000" />
       <workItem from="1740644345910" duration="2536000" />
       <workItem from="1740656452556" duration="2656000" />
+      <workItem from="1740661938347" duration="466000" />
+      <workItem from="1740662422883" duration="4817000" />
     </task>
     <task id="LOCAL-00001" summary="[ef]">
       <option name="closed" value="true" />
@@ -233,7 +252,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740661525835</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="[master] unversioned files">
+      <option name="closed" value="true" />
+      <created>1740662045417</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1740662045417</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -274,7 +301,8 @@
     <MESSAGE value="[ef] Rewrite GetCastle Query" />
     <MESSAGE value="[ef] Rewrite SafeCastle Command" />
     <MESSAGE value="[ef] Remove appsettings.json from git tracking" />
-    <option name="LAST_COMMIT_MESSAGE" value="[ef] Remove appsettings.json from git tracking" />
+    <MESSAGE value="[master] unversioned files" />
+    <option name="LAST_COMMIT_MESSAGE" value="[master] unversioned files" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

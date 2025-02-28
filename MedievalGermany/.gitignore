@@ -6,6 +6,7 @@
 
 /Migrations
 appsettings.json
+DEVNOTES.md
 
 # dotenv files
 .env
