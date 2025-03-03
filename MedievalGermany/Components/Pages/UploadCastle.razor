@@ -1,60 +1,71 @@
 ﻿@page "/upload-castle"
-@using System.ComponentModel.DataAnnotations
 @using FluentValidation
 @inject ICastleService CastleService
 @inject IValidator<ViewModel> Validator
 
-@if (Model != null)
-{
-    <EditForm EditContext="_editContext" OnValidSubmit="HandleValidSubmit">
-        <div class="upload-castle">
+<section class="upload-container">
+    <div class="upload-form">
+        @if (Model != null)
+        {
+            <EditForm EditContext="_editContext" OnValidSubmit="HandleValidSubmit">
+                <div class="upload-castle">
+                    <div class="upload-castle__row--one">
+                        <div class="upload-castle__input-wrapper">
+                            <label for="name">Name</label>
+                            <InputText @bind-Value="Model.Name" class="@GetValidationCss(nameof(Model.Name))"
+                                       placeholder="Schloss Neuschwanstein"/>
+                            <ValidationMessage For="() => Model.Name" class="upload-castle__validation-message"/>
+                        </div>
+                        <div class="upload-castle__input-wrapper">
+                            <label for="eroeffnet">Eröffnet</label>
+                            <InputNumber @bind-Value="Model.Eroeffnet"/>
+                            <ValidationMessage For="() => Model.Eroeffnet" class="upload-castle__validation-message"/>
+                        </div>
+                    </div>
 
-            <div class="upload-castle__row--one">
-                <div class="upload-castle__input-wrapper">
-                    <label for="name">Name</label>
-                    <InputText @bind-Value="Model.Name" class="@GetValidationCss(nameof(Model.Name))" placeholder="Schloss Neuschwanstein" />
-                    <ValidationMessage For="() => Model.Name" class="upload-castle__validation-message" />
-                </div>
-                <div class="upload-castle__input-wrapper">
-                    <label for="eroeffnet">Eröffnet</label>
-                    <InputNumber @bind-Value="Model.Eroeffnet" />
-                    <ValidationMessage For="() => Model.Eroeffnet" class="upload-castle__validation-message" />
-                </div>
-            </div>
+                    <div class="upload-castle__row--two">
+                        <div class="upload-castle__input-wrapper">
+                            <label for="wikipediaUrl">Wikipedia URL</label>
+                            <InputText @bind-Value="Model.WikipediaUrl" placeholder="..."/>
+                        </div>
+                        <div class="upload-castle__input-wrapper">
+                            <label for="imageUrl">Image URL</label>
+                            <InputText @bind-Value="Model.ImageUrl" placeholder="..."/>
+                        </div>
+                    </div>
 
-            <div class="upload-castle__row--two">
-                <div class="upload-castle__input-wrapper">
-                    <label for="wikipediaUrl">Wikipedia URL</label>
-                    <InputText @bind-Value="Model.WikipediaUrl" placeholder="..." />
-                </div>
-                <div class="upload-castle__input-wrapper">
-                    <label for="imageUrl">Image URL</label>
-                    <InputText @bind-Value="Model.ImageUrl" placeholder="..." />
-                </div>
-            </div>
+                    <div class="upload-castle__row--three">
+                        <div class="upload-castle__input-wrapper">
+                            <label for="latitude">Latitude</label>
+                            <InputNumber @bind-Value="Model.Latitude"
+                                         class="@GetValidationCss(nameof(Model.Latitude))"/>
+                            <ValidationMessage For="() => Model.Latitude" class="upload-castle__validation-message"/>
+                        </div>
+                        <div class="upload-castle__input-wrapper">
+                            <label for="longitude">Longitude</label>
+                            <InputNumber @bind-Value="Model.Longitude"
+                                         class="@GetValidationCss(nameof(Model.Longitude))"/>
+                            <ValidationMessage For="() => Model.Longitude" class="upload-castle__validation-message"/>
+                        </div>
+                        <div class="upload-castle__input-wrapper">
+                            <label for="key">Key</label>
+                            <InputText @bind-Value="Model.Key" class="@GetValidationCss(nameof(Model.Key))"
+                                       placeholder="..."/>
+                            <ValidationMessage For="() => Model.Key" class="upload-castle__validation-message"/>
+                        </div>
+                    </div>
 
-            <div class="upload-castle__row--three">
-                <div class="upload-castle__input-wrapper">
-                    <label for="latitude">Latitude</label>
-                    <InputNumber @bind-Value="Model.Latitude" class="@GetValidationCss(nameof(Model.Latitude))" />
-                    <ValidationMessage For="() => Model.Latitude" class="upload-castle__validation-message" />
+                    <button type="submit" class="upload-castle__speichern-btn">Speichern</button>
                 </div>
-                <div class="upload-castle__input-wrapper">
-                    <label for="longitude">Longitude</label>
-                    <InputNumber @bind-Value="Model.Longitude" class="@GetValidationCss(nameof(Model.Longitude))" />
-                    <ValidationMessage For="() => Model.Longitude" class="upload-castle__validation-message" />
-                </div>
-                <div class="upload-castle__input-wrapper">
-                    <label for="key">Key</label>
-                    <InputText @bind-Value="Model.Key" class="@GetValidationCss(nameof(Model.Key))" placeholder="..." />
-                    <ValidationMessage For="() => Model.Key" class="upload-castle__validation-message" />
-                </div>
-            </div>
+            </EditForm>
+        }
+    </div>
+    <div class="upload-image__wrapper">
+        <img class="upload-image" src="images/schloss-neuschwanstein.JPG"/>
+    </div>
+</section>
 
-            <button type="submit" class="upload-castle__speichern-btn">Speichern</button>
-        </div>
-    </EditForm>
-}
+
 
 @code {
     public ViewModel Model { get; set; } = new ViewModel() { Eroeffnet = 1884 };

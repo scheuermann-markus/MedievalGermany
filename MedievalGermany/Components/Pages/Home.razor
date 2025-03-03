@@ -18,7 +18,7 @@
         @if (Castles != null)
         {
             <div class="home__cards-wrapper">
-                @foreach (var castle in Castles)
+                @foreach (var castle in Castles.OrderBy(c => c.Name).Take(25))
                 {
                     <CastleCard Castle="@castle" />
                 }

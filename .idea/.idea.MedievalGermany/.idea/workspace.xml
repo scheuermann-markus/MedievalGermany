@@ -10,8 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fe9d6c5-ce65-470d-aaa2-49f803e24eb4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.MedievalGermany/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MedievalGermany/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MedievalGermany/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/MedievalGermany/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MedievalGermany/Components/Pages/Impressum.razor" beforeDir="false" afterPath="$PROJECT_DIR$/MedievalGermany/Components/Pages/Impressum.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MedievalGermany/wwwroot/css/home.css" beforeDir="false" afterPath="$PROJECT_DIR$/MedievalGermany/wwwroot/css/home.css" afterDir="false" />
     </list>
@@ -45,11 +43,7 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/838283bfd93842949b621b12fb175ec3275c00/49/995a1ecf/LinqExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/m_239/OneDrive/Dokumente/Coden/Medieval Germany/MedievalGermany/MedievalGermany/appsettings.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/m_239/OneDrive/Dokumente/Coden/Medieval Germany/MedievalGermany/MedievalGermany/appsettings.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/m_239/OneDrive/Dokumente/Coden/Medieval Germany/MedievalGermany/MedievalGermany/appsettings.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/m_239/OneDrive/Dokumente/Coden/Medieval Germany/MedievalGermany/MedievalGermany/appsettings.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/m_239/OneDrive/Dokumente/Coden/Medieval Germany/MedievalGermany/MedievalGermany/appsettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/m_239/OneDrive/Dokumente/Coden/Medieval Germany/MedievalGermany/MedievalGermany/Components/Pages/Impressum.razor" root0="SKIP_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" root2="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -63,24 +57,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.MedievalGermany: IIS Express.executor": "Debug",
-    ".NET Launch Settings Profile.MedievalGermany: http.executor": "Run",
-    "Publish to folder.Publish to folder.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "terminal",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.MedievalGermany: IIS Express.executor&quot;: &quot;Debug&quot;,
+    &quot;.NET Launch Settings Profile.MedievalGermany: http.executor&quot;: &quot;Run&quot;,
+    &quot;Publish to folder.Publish to folder.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected=".NET Launch Settings Profile.MedievalGermany: http">
     <configuration name="Publish to folder" type="DotNetFolderPublish" factoryName="Publish to folder">
       <riderPublish configuration="Release" platform="Any CPU" runtime="Portable" target_folder="$PROJECT_DIR$/MedievalGermany/publish" target_framework="net8.0" uuid_high="-7723615745086308332" uuid_low="-6500563026023389406" />
@@ -171,6 +165,7 @@
       <workItem from="1740656452556" duration="2656000" />
       <workItem from="1740661938347" duration="466000" />
       <workItem from="1740662422883" duration="4817000" />
+      <workItem from="1740726777408" duration="1081000" />
     </task>
     <task id="LOCAL-00001" summary="[ef]">
       <option name="closed" value="true" />
@@ -260,7 +255,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740662045417</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="[ef] Update .gitignore and workspace.xml">
+      <option name="closed" value="true" />
+      <created>1740726916552</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1740726916552</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -302,7 +305,8 @@
     <MESSAGE value="[ef] Rewrite SafeCastle Command" />
     <MESSAGE value="[ef] Remove appsettings.json from git tracking" />
     <MESSAGE value="[master] unversioned files" />
-    <option name="LAST_COMMIT_MESSAGE" value="[master] unversioned files" />
+    <MESSAGE value="[ef] Update .gitignore and workspace.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="[ef] Update .gitignore and workspace.xml" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
