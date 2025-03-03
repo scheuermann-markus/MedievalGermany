@@ -87,7 +87,7 @@
         _validationMessageStore.Clear(); // Vorherige Validation-Messages entfernen
 
         // ViewModel auf Castle-Klasse mappen
-        var caslte = new Castle
+        var castle = new Castle
         {
             Name = Model.Name,
             Eroeffnet = Model.Eroeffnet,
@@ -100,7 +100,20 @@
             }
         };
 
-        await CastleService.SafeCastle(caslte, Model.Key);
+        await CastleService.SafeCastle(castle, Model.Key);
+        ResetViewModel();
+        _editContext.NotifyValidationStateChanged();
+    }
+    
+    private void ResetViewModel()
+    {
+        Model.Name = string.Empty;
+        Model.Eroeffnet = 1884;
+        Model.WikipediaUrl = string.Empty;
+        Model.ImageUrl = string.Empty;
+        Model.Latitude = 0;
+        Model.Longitude = 0;
+        Model.Key = null;
     }
 
     private void ValidateModel(object? sender, ValidationRequestedEventArgs args)
@@ -150,23 +163,23 @@
 
                 RuleFor(e => e.Name).NotEmpty().WithMessage("Geben Sie einen Namen an.");
                 RuleFor(e => e.Latitude).Cascade(CascadeMode.StopOnFirstFailure)
-                                        .NotEmpty()
-                                        .WithMessage("Bitte geben Sie eine Latitude an.")
-                                        .Must((viewmodel, validatorcontext) =>
-                                            ValidateLatitude(viewmodel.Latitude))
-                                        .WithMessage("Latitude muss zwischen 47.2 und 55.5 sein.");
+                    .NotEmpty()
+                    .WithMessage("Bitte geben Sie eine Latitude an.")
+                    .Must((viewmodel, validatorcontext) =>
+                        ValidateLatitude(viewmodel.Latitude))
+                    .WithMessage("Latitude muss zwischen 47.2 und 55.5 sein.");
                 RuleFor(e => e.Longitude).Cascade(CascadeMode.StopOnFirstFailure)
-                                        .NotEmpty()
-                                        .WithMessage("Bitte geben Sie eine Longitude an.")
-                                        .Must((viewmodel, validatorcontext) =>
-                                            ValidateLongitude(viewmodel.Longitude))
-                                        .WithMessage("Longitude muss zwischen 5.8 und 14.86 sein.");
+                    .NotEmpty()
+                    .WithMessage("Bitte geben Sie eine Longitude an.")
+                    .Must((viewmodel, validatorcontext) =>
+                        ValidateLongitude(viewmodel.Longitude))
+                    .WithMessage("Longitude muss zwischen 5.8 und 14.86 sein.");
                 RuleFor(e => e.Key).Cascade(CascadeMode.StopOnFirstFailure)
-                                        .NotEmpty()
-                                        .WithMessage("Please provide a valid key.")
-                                        .Must((viewmodel, validatorcontext) =>
-                                            ValidateKey(viewmodel.Key, _uploadKey))
-                                        .WithMessage("This key is not valid.");
+                    .NotEmpty()
+                    .WithMessage("Please provide a valid key.")
+                    .Must((viewmodel, validatorcontext) =>
+                        ValidateKey(viewmodel.Key, _uploadKey))
+                    .WithMessage("This key is not valid.");
             }
         }
 
@@ -182,6 +195,7 @@
                 return false;
             }
         }
+
         // Validation function for Longitude
         static bool ValidateLongitude(double longitude)
         {
@@ -194,6 +208,7 @@
                 return false;
             }
         }
+
         // Validation function for Key
         static bool ValidateKey(string key, string uploadKey)
         {
@@ -213,4 +228,5 @@
         // Validierung disposen
         _editContext.OnValidationRequested -= ValidateModel;
     }
+
 }
