@@ -1,5 +1,5 @@
 ﻿.upload-container {
-    height: calc(100vh - 110px);
+    height: calc(100vh - 80px);
     display: flex;
     
 }
@@ -75,8 +75,9 @@
 .upload-castle__validation-message {
     position: absolute;
     color: red;
-    font-size: 0.9rem;
-    bottom: -20px;
+    font-size: 0.8rem;
+    top: 62px;
+    text-align: left;
 }
 
 .upload-castle__speichern-btn {

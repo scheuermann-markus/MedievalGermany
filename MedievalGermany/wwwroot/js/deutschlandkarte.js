@@ -70,7 +70,7 @@ const GetMarkerClusterGroup = () => {
 
 const GetMarkers = async (castles) => {
     var allMarkers = [];
-    let markerColor = "#38697e";
+    let markerColor = "#6e2b21";
 
     for (let i = 0; i < castles.length; i++) {
         let url = castles[i].wikipediaUrl;
